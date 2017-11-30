@@ -1,0 +1,541 @@
+
+CREATE TABLE Боссы_E_8
+(
+	ID_рейда integer  NULL ,
+	ID_босса integer  NOT NULL ,
+	ID_подземелья integer  NULL ,
+	Имя_босса varchar(30)  NOT NULL ,
+	Уровень_босса integer  NOT NULL 
+)
+go
+
+
+ALTER TABLE Боссы_E_8
+	ADD CONSTRAINT XPKБоссы_E_8 PRIMARY KEY  CLUSTERED (ID_босса ASC)
+go
+
+
+CREATE TABLE Группа_поля_боя_E_22
+(
+	ID_группы_поля_боя integer  NOT NULL ,
+	Количество_человек integer  NOT NULL ,
+	Захвачено_флагов float  NOT NULL ,
+	Количество_убийств integer  NOT NULL 
+)
+go
+
+
+ALTER TABLE Группа_поля_боя_E_22
+	ADD CONSTRAINT XPKГруппа_поля_боя_E_22 PRIMARY KEY  CLUSTERED (ID_группы_поля_боя ASC)
+go
+
+
+CREATE TABLE Группы__рейдов_E_18
+(
+	ID_группы_рейдов integer  NOT NULL ,
+	Количество_человек integer  NOT NULL 
+)
+go
+
+
+ALTER TABLE Группы__рейдов_E_18
+	ADD CONSTRAINT XPKГруппы__рейдов_E_18 PRIMARY KEY  CLUSTERED (ID_группы_рейдов ASC)
+go
+
+
+CREATE TABLE Группы_подземелий_E_19
+(
+	ID_группы_подземелий integer  NOT NULL ,
+	Количество_человек integer  NOT NULL 
+)
+go
+
+
+ALTER TABLE Группы_подземелий_E_19
+	ADD CONSTRAINT XPKГруппы_подземелий_E_19 PRIMARY KEY  CLUSTERED (ID_группы_подземелий ASC)
+go
+
+
+CREATE TABLE Игрок_E_1
+(
+	Никнейм varchar(15)  NOT NULL ,
+	email varchar(50)  NOT NULL ,
+	Фамилия varchar(25)  NOT NULL ,
+	Имя varchar(20)  NOT NULL ,
+	Отчество varchar(22)  NULL ,
+	Дата_рождения datetime  NOT NULL 
+)
+go
+
+
+ALTER TABLE Игрок_E_1
+	ADD CONSTRAINT XPKИгрок_E_1 PRIMARY KEY  CLUSTERED (Никнейм ASC)
+go
+
+
+CREATE UNIQUE NONCLUSTERED INDEX Альтенатиный_ключ ON Игрок_E_1
+(
+	email  ASC
+)
+go
+
+
+CREATE TABLE Игроки_на_серверах_E_20
+(
+	Никнейм varchar(15)  NOT NULL ,
+	IP_сервера varchar(20)  NOT NULL ,
+	Дата_входа datetime  NOT NULL 
+)
+go
+
+
+ALTER TABLE Игроки_на_серверах_E_20
+	ADD CONSTRAINT XPKИгроки_на_серверах_E_20 PRIMARY KEY  CLUSTERED (Никнейм ASC,IP_сервера ASC)
+go
+
+
+CREATE TABLE Класс_E_10
+(
+	Класс varchar(20)  NOT NULL ,
+	Описание varchar(50)  NULL 
+)
+go
+
+
+ALTER TABLE Класс_E_10
+	ADD CONSTRAINT XPKКласс_E_10 PRIMARY KEY  CLUSTERED (Класс ASC)
+go
+
+
+CREATE TABLE Классы_расс_E_17
+(
+	Класс varchar(20)  NOT NULL ,
+	ID_класса_расы integer  NOT NULL ,
+	ID_расы_фракции integer  NOT NULL 
+)
+go
+
+
+ALTER TABLE Классы_расс_E_17
+	ADD CONSTRAINT XPKКлассы_расс_E_17 PRIMARY KEY  CLUSTERED (ID_класса_расы ASC)
+go
+
+
+CREATE TABLE Персонаж_E_3
+(
+	ID_персонажа integer  NOT NULL ,
+	Никнейм varchar(15)  NOT NULL ,
+	IP_сервера varchar(20)  NOT NULL ,
+	Фракция varchar(10)  NOT NULL ,
+	Класс varchar(20)  NOT NULL ,
+	ID_расы_фракции integer  NOT NULL ,
+	Имя_персонажа varchar(20)  NOT NULL ,
+	Уровень_персонажа integer  NOT NULL ,
+	Уровень_экипировки integer  NOT NULL 
+)
+go
+
+
+ALTER TABLE Персонаж_E_3
+	ADD CONSTRAINT XPKПерсонаж_E_3 PRIMARY KEY  CLUSTERED (ID_персонажа ASC)
+go
+
+
+CREATE TABLE Персонажи_групп_подземелий_E_14
+(
+	ID_персонажа integer  NOT NULL ,
+	ID_группы_подземелий integer  NOT NULL ,
+	Нанесено_урона integer  NOT NULL ,
+	Получено_урона integer  NOT NULL ,
+	Вылечено_урона integer  NOT NULL 
+)
+go
+
+
+ALTER TABLE Персонажи_групп_подземелий_E_14
+	ADD CONSTRAINT XPKПерсонажи_групп_подземелий_E_14 PRIMARY KEY  CLUSTERED (ID_группы_подземелий ASC,ID_персонажа ASC)
+go
+
+
+CREATE TABLE Персонажи_групп_поля_боя_E_21
+(
+	ID_группы_поля_боя integer  NOT NULL ,
+	ID_персонажа integer  NOT NULL ,
+	Нанесено_урона integer  NOT NULL ,
+	Получено_урона integer  NOT NULL ,
+	Исцелено_урона integer  NOT NULL 
+)
+go
+
+
+ALTER TABLE Персонажи_групп_поля_боя_E_21
+	ADD CONSTRAINT XPKПерсонажи_групп_поля_боя_E_21 PRIMARY KEY  CLUSTERED (ID_группы_поля_боя ASC,ID_персонажа ASC)
+go
+
+
+CREATE TABLE Персонажи_групп_рейда_E_12
+(
+	ID_персонажа integer  NOT NULL ,
+	ID_группы_рейдов integer  NOT NULL ,
+	Нанесено_урона integer  NOT NULL ,
+	Получено_урона integer  NOT NULL ,
+	Вылечено_урона integer  NOT NULL 
+)
+go
+
+
+ALTER TABLE Персонажи_групп_рейда_E_12
+	ADD CONSTRAINT XPKПерсонажи_групп_рейда_E_12 PRIMARY KEY  CLUSTERED (ID_группы_рейдов ASC,ID_персонажа ASC)
+go
+
+
+CREATE TABLE Подземелье_E_5
+(
+	ID_подземелья integer  NOT NULL ,
+	ID_группы_подземелий integer  NOT NULL ,
+	Прогресс_прохождения float  NOT NULL ,
+	Начало_прохождения datetime  NOT NULL ,
+	Конец_прохождения datetime  NULL 
+)
+go
+
+
+ALTER TABLE Подземелье_E_5
+	ADD CONSTRAINT XPKПодземелье_E_5 PRIMARY KEY  CLUSTERED (ID_подземелья ASC,ID_группы_подземелий ASC)
+go
+
+
+CREATE TABLE Поле_боя_E_6
+(
+	Название_поля_боя varchar(20)  NOT NULL ,
+	ID_группы_поля_боя_2 integer  NOT NULL ,
+	ID_группы_поля_боя integer  NOT NULL ,
+	Победившая_сторона smallint  NULL ,
+	Начало_прохождения datetime  NOT NULL ,
+	Конец_прохождения datetime  NULL 
+)
+go
+
+
+ALTER TABLE Поле_боя_E_6
+	ADD CONSTRAINT XPKПоле_боя_E_6 PRIMARY KEY  CLUSTERED (Название_поля_боя ASC,ID_группы_поля_боя_2 ASC,ID_группы_поля_боя ASC)
+go
+
+
+CREATE TABLE Раса_E_9
+(
+	Фракция varchar(10)  NOT NULL ,
+	Раса varchar(20)  NOT NULL ,
+	ID_расы_фракции integer  NOT NULL ,
+	Описание varchar(50)  NULL 
+)
+go
+
+
+ALTER TABLE Раса_E_9
+	ADD CONSTRAINT XPKРаса_E_9 PRIMARY KEY  CLUSTERED (ID_расы_фракции ASC)
+go
+
+
+CREATE TABLE Рейд_E_7
+(
+	ID_рейда integer  NOT NULL ,
+	ID_группы_рейдов integer  NOT NULL ,
+	Прогресс_прохождения float  NOT NULL ,
+	Начало_прохождения datetime  NOT NULL ,
+	Конец_прохождения datetime  NULL 
+)
+go
+
+
+ALTER TABLE Рейд_E_7
+	ADD CONSTRAINT XPKРейд_E_7 PRIMARY KEY  CLUSTERED (ID_рейда ASC,ID_группы_рейдов ASC)
+go
+
+
+CREATE TABLE Роли_классов_E_16
+(
+	Класс varchar(20)  NOT NULL ,
+	Роль varchar(20)  NOT NULL ,
+	ID_роли_класса integer  NOT NULL 
+)
+go
+
+
+ALTER TABLE Роли_классов_E_16
+	ADD CONSTRAINT XPKРоли_классов_E_16 PRIMARY KEY  CLUSTERED (ID_роли_класса ASC)
+go
+
+
+CREATE TABLE Роль_E_11
+(
+	Роль varchar(20)  NOT NULL ,
+	Описание varchar(50)  NULL 
+)
+go
+
+
+ALTER TABLE Роль_E_11
+	ADD CONSTRAINT XPKРоль_E_11 PRIMARY KEY  CLUSTERED (Роль ASC)
+go
+
+
+CREATE TABLE Сервер_E_2
+(
+	IP_сервера varchar(20)  NOT NULL ,
+	Тип_сервера varchar(20)  NOT NULL ,
+	Загрузка integer  NULL 
+)
+go
+
+
+ALTER TABLE Сервер_E_2
+	ADD CONSTRAINT XPKСервер_E_2 PRIMARY KEY  CLUSTERED (IP_сервера ASC)
+go
+
+
+CREATE TABLE Список_подземелий_E_15
+(
+	ID_подземелья integer  NOT NULL ,
+	Название_рейда varchar(25)  NOT NULL ,
+	Сложность_рейда varchar(15)  NOT NULL ,
+	Мин_уровень_персонажа integer  NOT NULL ,
+	Мин_уровень_экипировки integer  NOT NULL 
+)
+go
+
+
+ALTER TABLE Список_подземелий_E_15
+	ADD CONSTRAINT XPKСписок_подземелий_E_15 PRIMARY KEY  CLUSTERED (ID_подземелья ASC)
+go
+
+
+CREATE TABLE Список_полей_боя_E_23
+(
+	Название_поля_боя varchar(20)  NOT NULL ,
+	Мин_уровень_персонажа integer  NOT NULL ,
+	Мин_уровень_экипировки integer  NOT NULL 
+)
+go
+
+
+ALTER TABLE Список_полей_боя_E_23
+	ADD CONSTRAINT XPKСписок_полей_боя_E_23 PRIMARY KEY  CLUSTERED (Название_поля_боя ASC)
+go
+
+
+CREATE TABLE Список_рейдов_E_13
+(
+	ID_рейда integer  NOT NULL ,
+	Название_рейда varchar(25)  NOT NULL ,
+	Сложность_рейда varchar(15)  NOT NULL ,
+	Мин_уровень_персонажа integer  NOT NULL ,
+	Мин_уровень_экипировки integer  NOT NULL 
+)
+go
+
+
+ALTER TABLE Список_рейдов_E_13
+	ADD CONSTRAINT XPKСписок_рейдов_E_13 PRIMARY KEY  CLUSTERED (ID_рейда ASC)
+go
+
+
+CREATE TABLE Фракция_E_4
+(
+	Фракция varchar(10)  NOT NULL ,
+	Описание varchar(50)  NULL 
+)
+go
+
+
+ALTER TABLE Фракция_E_4
+	ADD CONSTRAINT XPKФракция_E_4 PRIMARY KEY  CLUSTERED (Фракция ASC)
+go
+
+
+
+ALTER TABLE Боссы_E_8
+	ADD CONSTRAINT  R_35 FOREIGN KEY (ID_подземелья) REFERENCES Список_подземелий_E_15(ID_подземелья)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Боссы_E_8
+	ADD CONSTRAINT  R_31 FOREIGN KEY (ID_рейда) REFERENCES Список_рейдов_E_13(ID_рейда)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+ALTER TABLE Игроки_на_серверах_E_20
+	ADD CONSTRAINT  R_40 FOREIGN KEY (Никнейм) REFERENCES Игрок_E_1(Никнейм)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Игроки_на_серверах_E_20
+	ADD CONSTRAINT  R_41 FOREIGN KEY (IP_сервера) REFERENCES Сервер_E_2(IP_сервера)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+ALTER TABLE Классы_расс_E_17
+	ADD CONSTRAINT  R_24 FOREIGN KEY (ID_расы_фракции) REFERENCES Раса_E_9(ID_расы_фракции)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Классы_расс_E_17
+	ADD CONSTRAINT  R_25 FOREIGN KEY (Класс) REFERENCES Класс_E_10(Класс)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+ALTER TABLE Персонаж_E_3
+	ADD CONSTRAINT  R_2 FOREIGN KEY (Никнейм) REFERENCES Игрок_E_1(Никнейм)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Персонаж_E_3
+	ADD CONSTRAINT  R_12 FOREIGN KEY (IP_сервера) REFERENCES Сервер_E_2(IP_сервера)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Персонаж_E_3
+	ADD CONSTRAINT  R_10 FOREIGN KEY (Фракция) REFERENCES Фракция_E_4(Фракция)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Персонаж_E_3
+	ADD CONSTRAINT  R_17 FOREIGN KEY (ID_расы_фракции) REFERENCES Раса_E_9(ID_расы_фракции)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Персонаж_E_3
+	ADD CONSTRAINT  R_18 FOREIGN KEY (Класс) REFERENCES Класс_E_10(Класс)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+ALTER TABLE Персонажи_групп_подземелий_E_14
+	ADD CONSTRAINT  R_37 FOREIGN KEY (ID_персонажа) REFERENCES Персонаж_E_3(ID_персонажа)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Персонажи_групп_подземелий_E_14
+	ADD CONSTRAINT  R_38 FOREIGN KEY (ID_группы_подземелий) REFERENCES Группы_подземелий_E_19(ID_группы_подземелий)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+ALTER TABLE Персонажи_групп_поля_боя_E_21
+	ADD CONSTRAINT  R_49 FOREIGN KEY (ID_группы_поля_боя) REFERENCES Группа_поля_боя_E_22(ID_группы_поля_боя)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Персонажи_групп_поля_боя_E_21
+	ADD CONSTRAINT  R_50 FOREIGN KEY (ID_персонажа) REFERENCES Персонаж_E_3(ID_персонажа)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+ALTER TABLE Персонажи_групп_рейда_E_12
+	ADD CONSTRAINT  R_29 FOREIGN KEY (ID_персонажа) REFERENCES Персонаж_E_3(ID_персонажа)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Персонажи_групп_рейда_E_12
+	ADD CONSTRAINT  R_33 FOREIGN KEY (ID_группы_рейдов) REFERENCES Группы__рейдов_E_18(ID_группы_рейдов)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+ALTER TABLE Подземелье_E_5
+	ADD CONSTRAINT  R_36 FOREIGN KEY (ID_подземелья) REFERENCES Список_подземелий_E_15(ID_подземелья)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Подземелье_E_5
+	ADD CONSTRAINT  R_57 FOREIGN KEY (ID_группы_подземелий) REFERENCES Группы_подземелий_E_19(ID_группы_подземелий)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+ALTER TABLE Поле_боя_E_6
+	ADD CONSTRAINT  R_53 FOREIGN KEY (Название_поля_боя) REFERENCES Список_полей_боя_E_23(Название_поля_боя)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Поле_боя_E_6
+	ADD CONSTRAINT  R_55 FOREIGN KEY (ID_группы_поля_боя_2) REFERENCES Группа_поля_боя_E_22(ID_группы_поля_боя)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Поле_боя_E_6
+	ADD CONSTRAINT  R_56 FOREIGN KEY (ID_группы_поля_боя) REFERENCES Группа_поля_боя_E_22(ID_группы_поля_боя)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+ALTER TABLE Раса_E_9
+	ADD CONSTRAINT  R_23 FOREIGN KEY (Фракция) REFERENCES Фракция_E_4(Фракция)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+ALTER TABLE Рейд_E_7
+	ADD CONSTRAINT  R_30 FOREIGN KEY (ID_рейда) REFERENCES Список_рейдов_E_13(ID_рейда)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Рейд_E_7
+	ADD CONSTRAINT  R_58 FOREIGN KEY (ID_группы_рейдов) REFERENCES Группы__рейдов_E_18(ID_группы_рейдов)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+ALTER TABLE Роли_классов_E_16
+	ADD CONSTRAINT  R_26 FOREIGN KEY (Класс) REFERENCES Класс_E_10(Класс)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE Роли_классов_E_16
+	ADD CONSTRAINT  R_27 FOREIGN KEY (Роль) REFERENCES Роль_E_11(Роль)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
