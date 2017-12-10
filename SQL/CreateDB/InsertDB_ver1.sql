@@ -252,7 +252,7 @@ INSERT INTO Dungeon_list(Name_dungeon, Level_dungeon)
 VALUES
 ('Gnomeregan','Normal'),
 ('Wailing Caverns','Normal'),
-('The Stockade','Normal'),
+('Stormwind Stockade','Normal'),
 ('Uldaman','Heroic'),
 ('Razorfen Downs','Heroic'),
 ('Dire Maul','Heroic'),
@@ -266,8 +266,9 @@ VALUES
 (5),
 (5),
 (5),
-(5)
-
+(5),
+(5),
+(5);
 
 
 INSERT INTO Dungeon(ID_dungeon, ID_dungeon_group, Progress_dungeon, Start_progress, Finish_progress)
@@ -277,6 +278,10 @@ VALUES
 (1, 2, 100, '2017-01-01 01:01:00.000', '2017-01-01 02:28:00.000'),
 (3, 1, 50, '2017-02-02 03:03:03.000', '2017-02-02 03:15:00.000'),
 (2, 1, 30, '2017-05-05 05:05:00.000', '2017-05-05 05:05:00.000'), --finish должен быть null
+--
+(6, 6, 100, '2017-13-01 01:01:00.000', '2017-13-01 01:59:00.000'),
+(9, 7, 100, '2017-16-01 01:01:00.000', '2017-16-01 02:21:00.000'),
+--
 --4 записи на одном сервере
 (4, 3, 100, '2017-06-06 18:30:12.000', '2017-06-06 21:20:00.000'),
 (5, 4, 100, '2017-06-06 19:45:10.000', '2017-06-06 23:30:11.000'),
@@ -322,6 +327,19 @@ VALUES
 ( 25, 5, 0, 0, 0 ),
 ( 26, 5, 0, 0, 0 );
 
+--
+( 1, 6, 0, 0, 0 ),
+( 2, 6, 0, 0, 0 ),
+( 7, 6, 0, 0, 0 ),
+( 5, 6, 0, 0, 0 ),
+( 6, 6, 0, 0, 0 ),
+
+( 4, 7, 0, 0, 0 ),
+( 3, 7, 0, 0, 0 ),
+( 8, 7, 0, 0, 0 ),
+( 9, 7, 0, 0, 0 ),
+( 10, 7, 0, 0, 0 );
+
 
 INSERT INTO Boss(ID_raid, Name_boss, Level_boss)
 VALUES
@@ -330,6 +348,59 @@ VALUES
 (1, 'Deathbringer Saurfang', 'Normal'),
 (1, 'Blood-Queen Lanathel', 'Normal'),
 (1, 'The Lich King', 'Normal')
+
+INSERT INTO Boss(ID_dungeon, Name_boss, Level_boss)
+VALUES
+(1, 'Techbot', 'Normal'),
+(1, 'Viscous Fallout', 'Normal'),
+(1, 'Grubbis', 'Normal'),
+(1, 'Electrocutioner 6000', 'Normal'),
+(1, 'Mekgineer Thermaplugg', 'Normal'),
+
+(2, 'Lady Anacondra', 'Normal'),
+(2, 'Lord Cobrahn', 'Normal'),
+(2, 'Kresh', 'Normal'),
+(2, 'Lord Pythas', 'Normal'),
+(2, 'Skum', 'Normal'),
+
+(3, 'Randolph Moloch', 'Normal'),
+(3, 'Lord Overheat', 'Normal'),
+(3, 'Hogger', 'Normal'),
+
+(4, 'Revelosh', 'Heroic'),
+(4, 'Baelog', 'Heroic'),
+(4, 'Ironaya', 'Heroic'),
+(4, 'Grimlok', 'Heroic'),
+(4, 'Archaedas', 'Heroic'),
+
+(5, 'Roogug', 'Heroic'),
+(5, 'Aggem Thorncurse', 'Heroic'),
+(5, 'Death Spiker Jargba', 'Heroic'),
+(5, 'Agathelos the Raging', 'Heroic'),
+(5, 'Charlga Razorflank', 'Heroic'),
+
+
+(6, 'Zevrim Thornhoof', 'Heroic'),
+(6, 'Stomper Kreeg', 'Heroic'),
+(6, 'Captain Kromcrush', 'Heroic'),
+(6, 'Immolthar', 'Heroic'),
+
+
+(7, 'The Unforgiven', 'Epos'),
+(7, 'Balnazzar', 'Epos'),
+(7, 'Nerubenkan', 'Epos'),
+(7, 'Lord Aurius Rivendare', 'Epos'),
+
+(8, 'Antusul', 'Epos'),
+(8, 'Hydromancer Velratha', 'Epos'),
+(8, 'Chief Ukorz Sanscalp', 'Epos'),
+
+(9, 'BaelGar', 'Epos'),
+(9, 'Phalanx', 'Epos'),
+(9, 'Dark Coffer', 'Epos'),
+(9, 'Magmus', 'Epos'),
+(9, 'Emperor Dagran Thaurissan', 'Epos'),
+
 
 
 INSERT INTO Bf_group(Count_chars)
@@ -356,7 +427,18 @@ INSERT INTO Battlefield(Bf_name, ID_bf_group1, ID_bf_group2, Command_win, Start_
 VALUES
 ( 'Arathi Basin', 1, 2, 1, '2017-01-01 01:01:00.000', '2017-01-01 01:10:00.000'),
 ( 'Arathi Basin', 3, 4, null, '2017-01-01 01:01:00.000', null),
-( 'Arathi Basin', 1, 4, 1, '2017-02-02 02:02:00.000', '2017-02-02 02:05:00.000');
+( 'Arathi Basin', 1, 4, 1, '2017-02-02 02:02:00.000', '2017-02-02 02:05:00.000'),
+( 'Warsong Gulch', 1, 2, 2, '2017-11-11 10:01:00.000', '2017-11-11 10:10:00.000'),
+( 'Warsong Gulch', 2, 1, 2, '2017-13-11 11:01:00.000', '2017-13-11 11:07:00.000'),
+( 'Warsong Gulch', 2, 3, 2, '2017-28-11 11:01:00.000', '2017-28-11 11:10:00.000'),
+/*Тест 1. Негативный. Проверяем, что не будет выводиться группа 1. Т.к. она выиграла не подряд на одном и том же поле боя*/
+( 'Alterac Valley', 1, 2, 1, '2017-01-11 10:01:00.000', '2017-01-11 10:09:00.000'),
+( 'Eye of the Storm', 2, 1, 1, '2017-03-11 10:01:00.000', '2017-01-11 10:05:00.000'),
+( 'Alterac Valley', 1, 3, 3, '2017-05-11 11:01:00.000', '2017-05-11 11:10:00.000'),
+( 'Alterac Valley', 2, 1, 1, '2017-06-11 21:02:00.000', '2017-06-11 21:07:00.000'),
+( 'Alterac Valley', 3, 1, 1, '2017-06-11 13:01:00.000', '2017-06-11 13:08:00.000');
+
+
 
 
 INSERT INTO Char_bf_group(ID_char, ID_bf_group, Damaged, Taken_damage, Heal)
