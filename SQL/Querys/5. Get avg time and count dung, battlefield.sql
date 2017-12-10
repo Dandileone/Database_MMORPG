@@ -1,9 +1,15 @@
-Select	S.IP, 
+/*
+Собрать статистику по серверу: 
+вывести IP сервера; 
+количество подземелий, количество боёв , которые сыграли на каждом сервере ; 
+среднее время прохождения боёв и подземелий в рамках сервера.
+*/
+SELECT	S.IP, 
 		isnull(DResult.avgTimePlayDungeon,0) as avgTimePlayDungeon, 
 		isnull(DResult.countDungeon,0) as countDungeon, 
 		isnull(BFResult.avgTimePlayBattlefield,0) as avgTimePlayBattlefield, 
 		isnull(BFResult.countBattlefield,0) as countBattlefield
-From Server S
+FROM Server S
 LEFT JOIN (	--Get the average time of passing dungeon and count of dungeons on which the players played
 			SELECT IDG.IP, SUM(DATEDIFF(MINUTE, D.Start_progress, D.Finish_progress))/COUNT(*) as avgTimePlayDungeon, COUNT(*) as countDungeon
 			FROM Dungeon D
@@ -20,8 +26,8 @@ LEFT JOIN (	--Get the average time of passing dungeon and count of dungeons on w
 ON S.IP = DResult.IP
 
 LEFT JOIN (--Get the average time of passing battlefield and count of battlefield on which the players played
-			Select B.IP, SUM(DATEDIFF(MINUTE, BF.Start_progress, BF.Finish_progress))/COUNT(*) as avgTimePlayBattlefield, COUNT(*) as countBattlefield
-			From Battlefield BF
+			SELECT B.IP, SUM(DATEDIFF(MINUTE, BF.Start_progress, BF.Finish_progress))/COUNT(*) as avgTimePlayBattlefield, COUNT(*) as countBattlefield
+			FROM Battlefield BF
 			JOIN (
 					SELECT B.ID_bf_group1, B.ID_bf_group2, S.IP, B.Bf_name
 					FROM Server S
@@ -32,6 +38,6 @@ LEFT JOIN (--Get the average time of passing battlefield and count of battlefiel
 					GROUP BY B.ID_bf_group1, B.ID_bf_group2, S.IP , B.Bf_name
 				 ) B 
 			ON BF.ID_bf_group1 = B.ID_bf_group1 AND BF.ID_bf_group2 = B.ID_bf_group2 and BF.Bf_name = B.Bf_name
-			Group by B.IP 
+			GROUP BY B.IP 
 		  ) BFResult 
 ON S.IP = BFResult.IP
