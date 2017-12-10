@@ -7,7 +7,7 @@ USE mmorpg_Bang;
 SELECT	A.ID_char,
 		A.Name_char,
 		A.IP,
-		A.CountWins,
+		A.CountWinsBF,
 		DB.countBossesDung,
 		DB.countPlayedDung,
 		ROS.avgRaceOnServer
@@ -17,7 +17,7 @@ FROM	(	SELECT TOP(3)  *
 								BF.Command_win, 
 								TC.IP, 
 								TR.Race,
-								COUNT(*) AS CountWins/*,  
+								COUNT(*) AS CountWinsBF/*,  
 								SUM(CBFG.Damaged) AS damaged, 
 								SUM(CBFG.Heal) AS heal, 
 								SUM(CBFG.Taken_damage)AS  taken_damage*/
@@ -51,7 +51,7 @@ JOIN	 (
 			--общее среднее количество рассы на сервере
 			SELECT	D.IP, 
 					D.Race, 
-					SUM(D.avgRaceInGroup)/COUNT(D.Race) avgRaceOnServer
+					cast(SUM(D.avgRaceInGroup)/COUNT(D.Race) as decimal(6,0)) avgRaceOnServer
 			FROM (	--среднее количество рассы в процентах в каждой группе
 					SELECT	A.IP, 
 							A.Race, 
