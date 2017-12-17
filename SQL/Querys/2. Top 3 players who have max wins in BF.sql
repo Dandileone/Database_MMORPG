@@ -3,7 +3,7 @@
 Вывести id персонажей, никнеймы, количество подземелий на которых сыграл персонаж, общее количество боссов этих в подземелья, 
 средняя численность расы в подземелье в процентах. 
 */
-USE mmorpg_Bang; 
+USE mmorpg_Bang;
 SELECT	A.ID_char,
 		A.Name_char,
 		A.IP,
@@ -11,7 +11,8 @@ SELECT	A.ID_char,
 		DB.countBossesDung,
 		DB.countPlayedDung,
 		ROS.avgRaceOnServer
-FROM	(	SELECT TOP(3)  *
+FROM	(	
+			SELECT TOP(3)  *
 			FROM	(	SELECT	TC.ID_char, 
 								TC.Name_char, 
 								BF.Command_win, 
